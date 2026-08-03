@@ -125,7 +125,7 @@ class Very_Simple_Contact_Us_Form_Admin {
 		}
 		global $wpdb;
 		$wpdb->insert(
-			'wp_contact_us_form_entries',
+			$wpdb->prefix . 'contact_us_form_entries',
 			array(
 				'name'    => $name,
 				'email'   => $email,
@@ -158,6 +158,9 @@ class Very_Simple_Contact_Us_Form_Admin {
 	 * This function is used to edit the data
 	 */
 	public function simple_contact_us_form_edit() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'very-simple-contact-us-form' ) ), 403 );
+		}
 		check_ajax_referer( 'my-nonce', 'nonce' );
 		ob_start();
 		include 'partials/very-simple-contact-us-form-admin-edit.php';
@@ -169,6 +172,9 @@ class Very_Simple_Contact_Us_Form_Admin {
 	 * This function is used to delete the data
 	 */
 	public function simple_contact_us_form_delete() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'very-simple-contact-us-form' ) ), 403 );
+		}
 		check_ajax_referer( 'my-nonce', 'nonce' );
 		ob_start();
 		include 'partials/very-simple-contact-us-form-admin-delete.php';
@@ -179,6 +185,9 @@ class Very_Simple_Contact_Us_Form_Admin {
 	 * This function is used to update the data
 	 */
 	public function simple_contact_us_form_update() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'very-simple-contact-us-form' ) ), 403 );
+		}
 		check_ajax_referer( 'my-nonce', 'nonce' );
 		if ( isset( $_POST['name'] ) && ( ! empty( $_POST['name'] ) ) ) {
 			$name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
@@ -195,7 +204,7 @@ class Very_Simple_Contact_Us_Form_Admin {
 
 		global $wpdb;
 		$wpdb->update(
-			'wp_contact_us_form_entries',
+			$wpdb->prefix . 'contact_us_form_entries',
 			array(
 				'name'    => $name,
 				'email'   => $email,
@@ -231,7 +240,7 @@ class Very_Simple_Contact_Us_Form_Admin {
 		);
 		$data_rows  = array();
 		global $wpdb;
-		$rows  = 'SELECT * FROM wp_contact_us_form_entries';
+		$rows  = 'SELECT * FROM ' . $wpdb->prefix . 'contact_us_form_entries';
 		$users = $wpdb->get_results( $rows, 'ARRAY_A' );
 		foreach ( $users as $user ) {
 			$row         = array(
@@ -239,6 +248,11 @@ class Very_Simple_Contact_Us_Form_Admin {
 				$user['email'],
 				$user['message'],
 			);
+			foreach ( $row as $key => $value ) {
+				if ( preg_match( '/^[=+\-@]/', $value ) ) {
+					$row[ $key ] = "'" . $value;
+				}
+			}
 			$data_rows[] = $row;
 		}
 		ob_end_clean();

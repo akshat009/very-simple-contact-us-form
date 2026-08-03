@@ -18,7 +18,7 @@
 </div>
 <?php
 global $wpdb;
-$rows = $wpdb->get_results( 'SELECT * FROM wp_contact_us_form_entries' );
+$rows = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'contact_us_form_entries' );
 if ( $wpdb->last_error ) {
 	echo 'Error: ' . esc_html( $wpdb->last_error );
 }

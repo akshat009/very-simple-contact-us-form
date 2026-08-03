@@ -15,7 +15,7 @@
  * Plugin Name:       Very Simple Contact Us Form
  * Plugin URI:        #
  * Description:       This plugin displays a simple contact us form in the frontend with a shortcode <code>[contactus]</code>, You also get an database storing functionality along with the export feature
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Akshat Saxena
  * Author URI:        #
  * License:           GPL-2.0+
@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'VERY_SIMPLE_CONTACT_US_FORM_VERSION', '1.0.0' );
+define( 'VERY_SIMPLE_CONTACT_US_FORM_VERSION', '1.0.1' );
 
 /**
  * Define the variable for storing the path, used for including the files
@@ -63,6 +63,17 @@ function deactivate_very_simple_contact_us_form() {
 
 register_activation_hook( __FILE__, 'activate_very_simple_contact_us_form' );
 register_deactivation_hook( __FILE__, 'deactivate_very_simple_contact_us_form' );
+
+/**
+ * Keep the database schema up to date on existing installs.
+ * Runs on admin_init so an update to the plugin files applies schema
+ * changes automatically, not only when the plugin is reactivated.
+ */
+function very_simple_contact_us_form_upgrade_db() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-very-simple-contact-us-form-activator.php';
+	Very_Simple_Contact_Us_Form_Activator::maybe_upgrade();
+}
+add_action( 'admin_init', 'very_simple_contact_us_form_upgrade_db' );
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

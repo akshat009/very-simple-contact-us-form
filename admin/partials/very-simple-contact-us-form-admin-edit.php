@@ -11,17 +11,21 @@
  * @subpackage Very_Simple_Contact_Us_Form/admin/partials
  */
 
+if ( ! current_user_can( 'manage_options' ) ) {
+	wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'very-simple-contact-us-form' ) ), 403 );
+}
+check_ajax_referer( 'my-nonce', 'nonce' );
 ?>
 <div class="header-display" style="display: flex;align-items: center;flex-flow: wrap;justify-content:space-between;">
 	<h2>Form Entries</h2>
 </div>
 <?php
-check_ajax_referer( 'my-nonce', 'nonce' );
 if ( isset( $_POST['id'] ) && ( ! empty( $_POST['id'] ) ) ) {
 	$uid = sanitize_text_field( wp_unslash( $_POST['id'] ) );
 }
 global $wpdb;
-$row = $wpdb->get_row( $wpdb->prepare( "SELECT name, email, message FROM wp_contact_us_form_entries WHERE ID =' $uid '" ), ARRAY_A );
+$table_name = $wpdb->prefix . 'contact_us_form_entries';
+$row = $wpdb->get_row( $wpdb->prepare( "SELECT name, email, message FROM $table_name WHERE ID = %d", (int) $uid ), ARRAY_A );
 if ( $wpdb->last_error ) {
 	echo 'Error: ' . esc_html( $wpdb->last_error );
 }
@@ -38,7 +42,7 @@ if ( $row ) :
 </form>
 </div>';
 else :
-	echo 'nothing found';
+	echo esc_attr__( 'nothing found', 'very-simple-contact-us-form' );
 endif;
 ?>
 <script>
@@ -69,7 +73,7 @@ jQuery("#update-form").validate({
 			url: plugin_data_admin.ajax_url,
 			data: {
 				action: "simple_contact_us_form_update",
-				id:<?php echo $uid; ?>,
+				id:<?php echo esc_html( $uid ); ?>,
 				name: jQuery("#name").val(),
 				email: jQuery("#email").val(),
 				subject: jQuery("#message").val(),

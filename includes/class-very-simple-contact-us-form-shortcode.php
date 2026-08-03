@@ -70,9 +70,9 @@ class Very_Simple_Contact_Us_Form_Shortcode {
 	public function showform() {
 		ob_start();
 		include CONTACT_US_FORM_PATH . 'public/partials/very-simple-contact-us-form-public-display.php';
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/very-simple-contact-us-form-public.css', array(), $this->version, 'all' );
-		wp_enqueue_script( 'jquery-validate', plugin_dir_url( __FILE__ ) . 'js/jquery-validation.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( 'very-simple-contact-us-form-public.js', plugin_dir_url( __FILE__ ) . 'js/very-simple-contact-us-form-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_style( $this->plugin_name, CONTACT_US_FORM_URL . 'public/css/very-simple-contact-us-form-public.css', array(), $this->version, 'all' );
+		wp_enqueue_script( 'jquery-validate', CONTACT_US_FORM_URL . 'public/js/jquery-validation.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'very-simple-contact-us-form-public.js', CONTACT_US_FORM_URL . 'public/js/very-simple-contact-us-form-public.js', array( 'jquery' ), $this->version, true );
 		return ob_get_clean();
 	}
 
