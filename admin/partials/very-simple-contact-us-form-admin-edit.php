@@ -25,7 +25,7 @@ if ( isset( $_POST['id'] ) && ( ! empty( $_POST['id'] ) ) ) {
 }
 global $wpdb;
 $table_name = $wpdb->prefix . 'contact_us_form_entries';
-$row = $wpdb->get_row( $wpdb->prepare( "SELECT name, email, message FROM $table_name WHERE ID = %d", (int) $uid ), ARRAY_A );
+$row        = $wpdb->get_row( $wpdb->prepare( "SELECT name, email, message FROM $table_name WHERE ID = %d", (int) $uid ), ARRAY_A );
 if ( $wpdb->last_error ) {
 	echo 'Error: ' . esc_html( $wpdb->last_error );
 }

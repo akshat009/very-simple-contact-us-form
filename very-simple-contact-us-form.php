@@ -92,6 +92,5 @@ function run_very_simple_contact_us_form() {
 
 	$plugin = new Very_Simple_Contact_Us_Form();
 	$plugin->run();
-
 }
 run_very_simple_contact_us_form();

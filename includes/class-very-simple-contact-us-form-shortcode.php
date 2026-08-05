@@ -62,7 +62,6 @@ class Very_Simple_Contact_Us_Form_Shortcode {
 			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'very-simple-contact-us-form';
-
 	}
 	/**
 	 * Function to create content for displaying in the shortcode
@@ -75,5 +74,4 @@ class Very_Simple_Contact_Us_Form_Shortcode {
 		wp_enqueue_script( 'very-simple-contact-us-form-public.js', CONTACT_US_FORM_URL . 'public/js/very-simple-contact-us-form-public.js', array( 'jquery' ), $this->version, true );
 		return ob_get_clean();
 	}
-
 }

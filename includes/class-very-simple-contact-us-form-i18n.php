@@ -39,9 +39,5 @@ class Very_Simple_Contact_Us_Form_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }

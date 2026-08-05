@@ -30,7 +30,5 @@ class Very_Simple_Contact_Us_Form_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
 	}
-
 }

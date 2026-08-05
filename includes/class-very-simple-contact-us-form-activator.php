@@ -38,17 +38,17 @@ class Very_Simple_Contact_Us_Form_Activator {
 	 */
 	public static function activate() {
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'contact_us_form_entries';
+		$table_name      = $wpdb->prefix . 'contact_us_form_entries';
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql ="CREATE TABLE `$table_name` (
+		$sql = "CREATE TABLE `$table_name` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(255) NOT NULL,
 			`email` varchar(255) NOT NULL,
 			`message` tinytext NOT NULL,
 			PRIMARY KEY (`id`)
 		)$charset_collate";
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 
 		update_option( 'very_simple_contact_us_form_db_version', self::DB_VERSION );
@@ -71,5 +71,4 @@ class Very_Simple_Contact_Us_Form_Activator {
 			self::activate();
 		}
 	}
-
 }

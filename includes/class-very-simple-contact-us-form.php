@@ -78,7 +78,6 @@ class Very_Simple_Contact_Us_Form {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_shortcode_hooks();
-
 	}
 
 	/**
@@ -103,31 +102,30 @@ class Very_Simple_Contact_Us_Form {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-very-simple-contact-us-form-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-very-simple-contact-us-form-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-very-simple-contact-us-form-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-very-simple-contact-us-form-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-very-simple-contact-us-form-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-very-simple-contact-us-form-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-very-simple-contact-us-form-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-very-simple-contact-us-form-public.php';
 
 		/**
 		 * The class responsible for defining all actions that occur related to shortcode class.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-very-simple-contact-us-form-shortcode.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-very-simple-contact-us-form-shortcode.php';
 		$this->loader = new Very_Simple_Contact_Us_Form_Loader();
-
 	}
 
 	/**
@@ -144,7 +142,6 @@ class Very_Simple_Contact_Us_Form {
 		$plugin_i18n = new Very_Simple_Contact_Us_Form_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -163,7 +160,6 @@ class Very_Simple_Contact_Us_Form {
 		if ( isset( $_GET['action'] ) && ( $_GET['action'] === 'download_csv' ) ) {
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'simple_contact_us_form_sendcsv' );
 		}
-
 	}
 
 	/**
@@ -179,7 +175,6 @@ class Very_Simple_Contact_Us_Form {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 	/**
 	 * Register all of the hooks related to the shortcode functionality
@@ -233,5 +228,4 @@ class Very_Simple_Contact_Us_Form {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

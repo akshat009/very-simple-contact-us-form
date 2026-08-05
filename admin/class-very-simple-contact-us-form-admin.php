@@ -152,7 +152,6 @@ class Very_Simple_Contact_Us_Form_Admin {
 	public function showlist() {
 
 		include 'partials/very-simple-contact-us-form-admin-display.php';
-
 	}
 	/**
 	 * This function is used to edit the data
@@ -166,7 +165,6 @@ class Very_Simple_Contact_Us_Form_Admin {
 		include 'partials/very-simple-contact-us-form-admin-edit.php';
 		wp_send_json_success( ob_get_clean() );
 		wp_die();
-
 	}
 	/**
 	 * This function is used to delete the data
@@ -214,7 +212,6 @@ class Very_Simple_Contact_Us_Form_Admin {
 		);
 		wp_send_json_success();
 		wp_die();
-
 	}
 		/**
 		 * This function is used to generate csv
@@ -232,7 +229,7 @@ class Very_Simple_Contact_Us_Form_Admin {
 			wp_die( 'Security check error' );
 		}
 		ob_start();
-		$filename   = 'contact-us-form-details-'. time() . '.csv';
+		$filename   = 'contact-us-form-details-' . time() . '.csv';
 		$header_row = array(
 			'Name',
 			'Email',
@@ -243,7 +240,7 @@ class Very_Simple_Contact_Us_Form_Admin {
 		$rows  = 'SELECT * FROM ' . $wpdb->prefix . 'contact_us_form_entries';
 		$users = $wpdb->get_results( $rows, 'ARRAY_A' );
 		foreach ( $users as $user ) {
-			$row         = array(
+			$row = array(
 				$user['name'],
 				$user['email'],
 				$user['message'],
@@ -256,8 +253,8 @@ class Very_Simple_Contact_Us_Form_Admin {
 			$data_rows[] = $row;
 		}
 		ob_end_clean();
-		$fh = @fopen( 'php://output', 'w' ); 
-		fprintf( $fh, chr(0xEF) . chr(0xBB) . chr(0xBF) );
+		$fh = @fopen( 'php://output', 'w' );
+		fprintf( $fh, chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) );
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-type: text/csv' );
@@ -268,9 +265,8 @@ class Very_Simple_Contact_Us_Form_Admin {
 		foreach ( $data_rows as $data_row ) {
 			fputcsv( $fh, $data_row );
 		}
-		fclose( $fh ); 
+		fclose( $fh );
 		ob_end_flush();
 		die();
 	}
-
 }

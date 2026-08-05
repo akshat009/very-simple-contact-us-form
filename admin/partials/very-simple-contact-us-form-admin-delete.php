@@ -23,4 +23,3 @@ $row = $wpdb->delete( $wpdb->prefix . 'contact_us_form_entries', array( 'id' => 
 if ( $wpdb->last_error ) {
 	echo 'Error: ' . esc_html( $wpdb->last_error );
 }
-

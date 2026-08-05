@@ -86,7 +86,5 @@ class Very_Simple_Contact_Us_Form_Public {
 				'nonce'    => wp_create_nonce( 'my-nonce' ),
 			),
 		);
-
 	}
-
 }
