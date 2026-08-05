@@ -34,3 +34,4 @@ e.g.
 * Security fix: replaced hardcoded database table references with the configured WordPress table prefix.
 * Fix: corrected the frontend stylesheet and validation script URLs so they load correctly when the [contactus] shortcode is used.
 * Fix: frontend form validation now binds correctly since the validation script loads after the form markup exists in the DOM.
+* Fix: widened the `name` and `email` database columns from varchar(25) to varchar(255) so real names and email addresses aren't truncated or rejected; existing installs are upgraded automatically.
